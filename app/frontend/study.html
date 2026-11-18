@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H2 DI Engine Study</title><link rel="stylesheet" href="simulation.css"><link rel="stylesheet" href="study.css"></head>
+<body>
+<header><a class="brand" href="simulation.html"><span class="logo">H₂</span><span>ENGINE STUDIO<small>DOE · MACHINE LEARNING · OPTIMISATION</small></span></a><nav class="nav"><a href="simulation.html">Single cycle</a><a href="study.html" aria-current="page">DOE study &amp; optimisation</a></nav></header>
+<main>
+<section class="intro"><div><p class="eyebrow">LAYER 2 · FIND THE BEST-PERFORMING SETUP</p><h1>Simulate every setup. Rank. Optimise.</h1><p class="project-title">All 2,625 workbook combinations (compression ratio × injection timing × load × speed) run through a spark-ignited DI hydrogen cycle model that fills the workbook's nine outputs. Machine-learning surrogates are compared, then a genetic algorithm searches between grid points and every optimum is re-checked with the physics model.</p></div><span class="model-badge">0D SI-DI cycle · Cantera chemistry</span></section>
+
+<section class="panel" id="run-panel"><div class="section-head"><h2><span>01</span> Full-factorial study</h2><div class="actions"><a class="download-link" id="dl-csv" href="/api/study/doe_results.csv">Results CSV ↓</a><a class="download-link" id="dl-xlsx" href="/api/study/doe_filled.xlsx">Filled workbook XLSX ↓</a><a class="download-link" id="dl-ml" href="/api/study/ml_report.json">ML report JSON ↓</a></div></div>
+<div class="run-row"><button class="primary" id="study-run" type="button">Run full study ↗</button><div><progress id="study-progress" max="100" value="0" aria-label="Study progress"></progress><p id="study-status" role="status" aria-live="polite">Checking saved study…</p></div></div>
+<div class="tiles" id="study-tiles"></div>
+<p class="caption">Runs 2,625 workbook setups plus 1,200 Latin-hypercube infill points (between grid lines, used only for ML training), then cross-validates three regressors. About 5 minutes on a 12-core PC.</p></section>
+
+<section class="panel"><div class="section-head"><h2><span>02</span> Best-performing setups</h2><span class="tag">DESIRABILITY RANKING</span></div>
+<div class="controls" id="weights"></div>
+<div class="controls filters"><label>Knock / pre-ignition limit<input type="range" id="knock-limit" min="0.5" max="5" step="0.25" value="2.5"><output id="knock-out">2.5</output></label>
+<label>Compression ratio<select id="f-cr"></select></label><label>Engine speed<select id="f-rpm"></select></label><label>Load<select id="f-load"></select></label></div>
+<div class="tiles" id="best-tiles"></div>
+<div class="table-scroll"><table class="rank"><caption id="rank-caption">Top setups</caption><thead><tr><th>#</th><th>S.NO</th><th>CR</th><th>SOI °BTDC</th><th>Load % (φ)</th><th>rpm</th><th>Power kW</th><th>Torque N·m</th><th>BTE %</th><th>NOx ppm</th><th>Knock 0–5</th><th>D</th></tr></thead><tbody id="rank-body"></tbody></table></div>
+<p class="caption">D is the Derringer–Suich desirability: a weighted geometric mean of normalised brake thermal efficiency and brake power (higher is better) and NOx (log scale) and knock tendency (lower is better). Setups over the knock limit or with no positive brake power score 0. Select a row to open its 13 graphs.</p></section>
+
+<section class="panel" id="pack-panel"><div class="section-head"><h2><span>03</span> 13-graph pack</h2><span class="tag" id="pack-tag">NO SETUP SELECTED</span></div>
+<p id="pack-status" class="caption" role="status" aria-live="polite">Select a setup in the ranking, the trade-off plot or the optimiser.</p>
+<div class="tiles" id="pack-tiles"></div>
+<div class="grid13" id="pack-grid"></div></section>
+
+<section class="panel"><div class="section-head"><h2><span>04</span> Trade-offs &amp; trends</h2><span class="tag">ALL FEASIBLE SETUPS</span></div>
+<div class="two"><div><h3>Efficiency vs NOx · Pareto front</h3><canvas id="pareto" class="chart" role="img" aria-label="Brake thermal efficiency versus NOx for all feasible setups, Pareto front highlighted"></canvas><p class="caption" id="pareto-note"></p></div>
+<div><h3>Best injection timing per operating point</h3><div class="table-scroll"><table class="heat" id="soi-map"></table></div><p class="caption">Each cell: the highest-desirability setup at that speed and load (across the compression-ratio filter): SOI ° BTDC and compression ratio. Shading follows D.</p></div></div>
+<div class="section-head ml-subhead"><h3>Main effects</h3><label class="inline">Output<select id="effect-output"></select></label></div>
+<div class="grid4" id="effects"></div>
+<p class="caption">Mean of the selected output at each level of one input, averaged over all other inputs (full-factorial main effects).</p></section>
+
+<section class="panel"><div class="section-head"><h2><span>05</span> Machine-learning surrogate</h2><span class="tag">RF · GRADIENT BOOSTING · ANN</span></div>
+<p class="caption" id="ml-summary"></p>
+<div class="table-scroll"><table><thead><tr><th>Output</th><th>RF CV R²</th><th>GBR CV R²</th><th>ANN CV R²</th><th>Selected</th><th>Test R² on grid</th><th>Test R² off grid</th><th>Test RMSE</th></tr></thead><tbody id="ml-body"></tbody></table></div>
+<div class="two"><div><h3>Learning curve · how many simulations are needed?</h3><canvas id="curve" class="chart" role="img" aria-label="Mean held-out R squared versus number of training simulations for each model"></canvas></div>
+<div><div class="section-head ml-subhead"><h3>Parity · held-out test</h3><select id="parity-output" aria-label="Parity output"></select></div><canvas id="parity" class="chart" role="img" aria-label="Predicted versus simulated values on the held-out test set"></canvas></div></div>
+<h3>Which input drives each output? (permutation importance, R² drop)</h3><div class="table-scroll"><table class="heat" id="importance"></table></div></section>
+
+<section class="panel"><div class="section-head"><h2><span>06</span> Genetic-algorithm optimisation &amp; validation</h2><span class="tag">ML SEARCH → PHYSICS CHECK</span></div>
+<p class="caption">Differential evolution searches the continuous input space on the ML surrogate using the weights and knock limit from section 02. The optimum is then re-simulated with the physics model: the gap between the two is the surrogate's real error at that point.</p>
+<div class="controls" id="opt-vars"></div>
+<button class="primary" id="opt-run" type="button">Optimise &amp; validate ↗</button><p id="opt-status" role="status" aria-live="polite"></p>
+<div id="opt-result"></div></section>
+<footer>H₂ ENGINE STUDIO <span>Results are simulated with literature-typical constants, not measured; validate against GT-Power or test data before quantitative claims.</span></footer>
+</main>
+<div id="tip" class="tip" hidden></div>
+<script src="study.js"></script></body></html>

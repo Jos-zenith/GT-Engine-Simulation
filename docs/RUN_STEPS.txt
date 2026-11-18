@@ -1,0 +1,11 @@
+Run steps:
+
+1. open anaconda prompt
+
+2. paste & enter ->  activate mech
+
+3. paste & enter -> cd C:\Users\jovan\OneDrive\Attachments\Desktop\project\Hydrogen_Engine_Client
+
+4. paste & enter -> python phase1_server.py 
+
+5. open any browser and paste ->  http://127.0.0.1:8000

@@ -1,0 +1,1784 @@
+{
+  "title": "Performance Simulation and Prediction of a Hydrogen Engine Using Thermodynamic Modelling and Machine Learning",
+  "source": "Operating inputs from the supplied workbook; outputs from Cantera timed hydrogen injection with homogeneous mixing and provisional autoignition. Not experimental measurements.",
+  "created_utc": "2026-10-22T10:36:10.605779+00:00",
+  "seed": 42,
+  "sample_count": 1800,
+  "splits": {
+    "train": 1080,
+    "validation": 360,
+    "test": 360
+  },
+  "feature_ranges": {
+    "Compression_Ratio": [
+      10.5,
+      12.5
+    ],
+    "Hydrogen_Injection_Timing_deg_BTDC": [
+      60,
+      160
+    ],
+    "Engine_Load_pct": [
+      0,
+      100
+    ],
+    "Engine_Speed_rpm": [
+      2500,
+      4500
+    ]
+  },
+  "targets": [
+    "peak_pressure_bar",
+    "peak_temperature_k",
+    "gross_imep_bar",
+    "gross_indicated_power_kw",
+    "fuel_consumption_kg_per_hr"
+  ],
+  "fixed_inputs": {},
+  "fixed_engine": {
+    "bore_mm": 100,
+    "stroke_mm": 100,
+    "conrod_mm": 220,
+    "intake_temperature_k": 450,
+    "intake_pressure_bar": 1,
+    "heat_transfer_coefficient": 150,
+    "wall_temperature_k": 450,
+    "injection_duration_deg": 20,
+    "hydrogen_temperature_k": 300,
+    "hydrogen_supply_pressure_bar": 100
+  },
+  "workbook": {
+    "file_name": "2635 boundary conditions.xlsx",
+    "sha256": "064dd89d94acbeb168d833676fe84ad171d2125627e48556875495169cb482c1",
+    "row_count": 2625,
+    "populated_output_cells": 0,
+    "input_columns": [
+      "Compression_Ratio",
+      "Hydrogen_Injection_Timing_deg_BTDC",
+      "Engine_Load_pct",
+      "Engine_Speed_rpm"
+    ]
+  },
+  "reaction_counts": {
+    "no_substantial_reaction": 1624,
+    "partial_reaction": 13,
+    "substantial_reaction": 163
+  },
+  "selection_rule": "Lowest validation RMSE normalized by training-target standard deviation; no refit on test data.",
+  "selected_model": "Random forest",
+  "leaderboard": [
+    {
+      "name": "Linear ridge",
+      "validation_normalized_rmse": 0.7265700447243476
+    },
+    {
+      "name": "Polynomial ridge (degree 3)",
+      "validation_normalized_rmse": 0.40066941594547567
+    },
+    {
+      "name": "Random forest",
+      "validation_normalized_rmse": 0.3511757896650672
+    }
+  ],
+  "test_metrics": {
+    "Linear ridge": {
+      "peak_pressure_bar": {
+        "mae": 8.916496970512956,
+        "rmse": 12.085376287474395,
+        "r2": 0.4554206737645322
+      },
+      "peak_temperature_k": {
+        "mae": 330.9600064436224,
+        "rmse": 445.51391790024996,
+        "r2": 0.29437201532864476
+      },
+      "gross_imep_bar": {
+        "mae": 1.774495124376267,
+        "rmse": 2.38988472145102,
+        "r2": 0.28181021981386256
+      },
+      "gross_indicated_power_kw": {
+        "mae": 14.708671219840966,
+        "rmse": 20.775548314709685,
+        "r2": 0.27730662317885457
+      },
+      "fuel_consumption_kg_per_hr": {
+        "mae": 0.3741985089159984,
+        "rmse": 0.5176471674114923,
+        "r2": 0.9637713857607332
+      }
+    },
+    "Polynomial ridge (degree 3)": {
+      "peak_pressure_bar": {
+        "mae": 4.269500690289908,
+        "rmse": 6.658066028894404,
+        "r2": 0.8347136490572794
+      },
+      "peak_temperature_k": {
+        "mae": 165.30136380860725,
+        "rmse": 276.07324415421436,
+        "r2": 0.7290420601084855
+      },
+      "gross_imep_bar": {
+        "mae": 0.8755426039759766,
+        "rmse": 1.4444428887707106,
+        "r2": 0.7376469814144611
+      },
+      "gross_indicated_power_kw": {
+        "mae": 7.583670197615731,
+        "rmse": 12.8121709904946,
+        "r2": 0.7251507618268825
+      },
+      "fuel_consumption_kg_per_hr": {
+        "mae": 0.0001278696947071081,
+        "rmse": 0.00017925914521148016,
+        "r2": 0.9999999956554312
+      }
+    },
+    "Random forest": {
+      "peak_pressure_bar": {
+        "mae": 1.3019707167727161,
+        "rmse": 4.37273020237897,
+        "r2": 0.9287071197694935
+      },
+      "peak_temperature_k": {
+        "mae": 51.98205586330199,
+        "rmse": 213.83947272461322,
+        "r2": 0.8374342716926265
+      },
+      "gross_imep_bar": {
+        "mae": 0.2669274154479161,
+        "rmse": 1.1148662806057161,
+        "r2": 0.8437101134749934
+      },
+      "gross_indicated_power_kw": {
+        "mae": 2.222854564044628,
+        "rmse": 9.34766093897735,
+        "r2": 0.8536964084332014
+      },
+      "fuel_consumption_kg_per_hr": {
+        "mae": 0.3694567838427293,
+        "rmse": 0.5573979989917307,
+        "r2": 0.9579936594184825
+      }
+    }
+  },
+  "test_examples": [
+    {
+      "actual": {
+        "peak_pressure_bar": 29.927749151899764,
+        "peak_temperature_k": 1030.7868881254306,
+        "gross_imep_bar": 0.07474207686884245,
+        "gross_indicated_power_kw": 0.7826971986839969,
+        "fuel_consumption_kg_per_hr": 4.195232019908373
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.895985595845048,
+        "peak_temperature_k": 1028.8948697791996,
+        "gross_imep_bar": 0.0736582503778381,
+        "gross_indicated_power_kw": 0.7196081716365857,
+        "fuel_consumption_kg_per_hr": 3.8395071319291114
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 26.524124862808673,
+        "peak_temperature_k": 1039.193980634507,
+        "gross_imep_bar": -0.012790633312741625,
+        "gross_indicated_power_kw": -0.1506860986877624,
+        "fuel_consumption_kg_per_hr": 2.3711090017420178
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.487008992735134,
+        "peak_temperature_k": 1037.7452349400596,
+        "gross_imep_bar": -0.01315301989716812,
+        "gross_indicated_power_kw": -0.14140534872510438,
+        "fuel_consumption_kg_per_hr": 2.1982156468888534
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.121393742925946,
+        "peak_temperature_k": 1073.2664041123924,
+        "gross_imep_bar": 0.34960778854563485,
+        "gross_indicated_power_kw": 2.7458131503318515,
+        "fuel_consumption_kg_per_hr": 4.699204698208057
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.25867287375503,
+        "peak_temperature_k": 1086.3412203912164,
+        "gross_imep_bar": 0.40022509800725004,
+        "gross_indicated_power_kw": 3.2080100943152288,
+        "fuel_consumption_kg_per_hr": 4.994536690643122
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.921207600441644,
+        "peak_temperature_k": 1018.92698962469,
+        "gross_imep_bar": 0.09763370594219871,
+        "gross_indicated_power_kw": 0.6390111111057452,
+        "fuel_consumption_kg_per_hr": 3.933030000844734
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.046749880713804,
+        "peak_temperature_k": 1020.6072497851494,
+        "gross_imep_bar": 0.11000860067108695,
+        "gross_indicated_power_kw": 0.9129451400077141,
+        "fuel_consumption_kg_per_hr": 5.026084664353433
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.1982542488704,
+        "peak_temperature_k": 1060.8700168481623,
+        "gross_imep_bar": 0.039463362488644696,
+        "gross_indicated_power_kw": 0.25828710350057754,
+        "fuel_consumption_kg_per_hr": 2.610669299025944
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.286148482469,
+        "peak_temperature_k": 1062.6790849093218,
+        "gross_imep_bar": 0.027367656748533354,
+        "gross_indicated_power_kw": 0.21169365938766777,
+        "fuel_consumption_kg_per_hr": 3.1882798990163304
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.776421636597185,
+        "peak_temperature_k": 1038.3460904905637,
+        "gross_imep_bar": -0.045407383617887466,
+        "gross_indicated_power_kw": -0.2971906308181017,
+        "fuel_consumption_kg_per_hr": 2.634565572197389
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.949236973700323,
+        "peak_temperature_k": 1039.1257648335284,
+        "gross_imep_bar": -0.03413202843488729,
+        "gross_indicated_power_kw": -0.26182076116388053,
+        "fuel_consumption_kg_per_hr": 3.263474025201056
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 73.16677408492016,
+        "peak_temperature_k": 2468.53507775003,
+        "gross_imep_bar": 6.647628503035369,
+        "gross_indicated_power_kw": 52.21035217232508,
+        "fuel_consumption_kg_per_hr": 3.1091146367073885
+      },
+      "predicted": {
+        "peak_pressure_bar": 67.73031440619641,
+        "peak_temperature_k": 2413.9505019395456,
+        "gross_imep_bar": 6.396362140970859,
+        "gross_indicated_power_kw": 49.66294404027212,
+        "fuel_consumption_kg_per_hr": 3.0883283416098557
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 34.640468709071676,
+        "peak_temperature_k": 1049.9705254235444,
+        "gross_imep_bar": 0.14218122442006736,
+        "gross_indicated_power_kw": 0.930573937742678,
+        "fuel_consumption_kg_per_hr": 2.590928893904422
+      },
+      "predicted": {
+        "peak_pressure_bar": 36.748787978283886,
+        "peak_temperature_k": 1186.0278758781458,
+        "gross_imep_bar": 0.7570554379290085,
+        "gross_indicated_power_kw": 5.094576514316925,
+        "fuel_consumption_kg_per_hr": 2.9651120699793814
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.056169304960406,
+        "peak_temperature_k": 1049.259878576301,
+        "gross_imep_bar": -0.010401917492709505,
+        "gross_indicated_power_kw": -0.09531254710350143,
+        "fuel_consumption_kg_per_hr": 1.8354140217449504
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.06118827564817,
+        "peak_temperature_k": 1049.4474863573237,
+        "gross_imep_bar": -0.010556389553057006,
+        "gross_indicated_power_kw": -0.08871124225548313,
+        "fuel_consumption_kg_per_hr": 1.896048238310518
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.384170712308713,
+        "peak_temperature_k": 1071.5679122761223,
+        "gross_imep_bar": -0.05697951963772477,
+        "gross_indicated_power_kw": -0.4475161007473788,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.380537063728752,
+        "peak_temperature_k": 1071.426070395254,
+        "gross_imep_bar": -0.05752544314633821,
+        "gross_indicated_power_kw": -0.4473598609163205,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.741074504721457,
+        "peak_temperature_k": 1037.0547426712205,
+        "gross_imep_bar": -0.006026720506606313,
+        "gross_indicated_power_kw": -0.06311166956264451,
+        "fuel_consumption_kg_per_hr": 4.215305091481945
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.943503631604266,
+        "peak_temperature_k": 1036.1844729931113,
+        "gross_imep_bar": -0.004776305169845714,
+        "gross_indicated_power_kw": -0.0427487556271516,
+        "fuel_consumption_kg_per_hr": 4.299281749719131
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.590147725165394,
+        "peak_temperature_k": 1015.433724160997,
+        "gross_imep_bar": 0.07826292428911982,
+        "gross_indicated_power_kw": 0.6146755699878826,
+        "fuel_consumption_kg_per_hr": 6.322957329786845
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.981099242517253,
+        "peak_temperature_k": 1017.1266100386256,
+        "gross_imep_bar": 0.07402072399491794,
+        "gross_indicated_power_kw": 0.6667247324932787,
+        "fuel_consumption_kg_per_hr": 6.472359183199536
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.6430409625431,
+        "peak_temperature_k": 1103.1568419466264,
+        "gross_imep_bar": -0.05132598342930855,
+        "gross_indicated_power_kw": -0.4702988863993795,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 30.64193134112508,
+        "peak_temperature_k": 1103.1169930884787,
+        "gross_imep_bar": -0.0514807827976224,
+        "gross_indicated_power_kw": -0.47025494863506667,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 73.98958456176912,
+        "peak_temperature_k": 2840.2799541172153,
+        "gross_imep_bar": 9.192770328734186,
+        "gross_indicated_power_kw": 108.2997739908358,
+        "fuel_consumption_kg_per_hr": 6.9955080111841195
+      },
+      "predicted": {
+        "peak_pressure_bar": 76.86274542257166,
+        "peak_temperature_k": 2575.6092952450554,
+        "gross_imep_bar": 8.041698268115713,
+        "gross_indicated_power_kw": 86.59115262705805,
+        "fuel_consumption_kg_per_hr": 6.7385643719816
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.211117586369056,
+        "peak_temperature_k": 1030.2803011230874,
+        "gross_imep_bar": 0.18448890463250828,
+        "gross_indicated_power_kw": 1.44897246865579,
+        "fuel_consumption_kg_per_hr": 4.680630840232894
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.62258078038081,
+        "peak_temperature_k": 1026.6691825683865,
+        "gross_imep_bar": 0.20248688767791817,
+        "gross_indicated_power_kw": 1.561175052116112,
+        "fuel_consumption_kg_per_hr": 4.850449406405077
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.05503874209461,
+        "peak_temperature_k": 1056.1092628667452,
+        "gross_imep_bar": 0.03622005304425921,
+        "gross_indicated_power_kw": 0.23705969282599454,
+        "fuel_consumption_kg_per_hr": 2.6106692957312103
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.08991045883251,
+        "peak_temperature_k": 1058.3000098598527,
+        "gross_imep_bar": 0.03182095129335598,
+        "gross_indicated_power_kw": 0.23875154243387278,
+        "fuel_consumption_kg_per_hr": 2.9957431082359283
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.078956215001572,
+        "peak_temperature_k": 1013.1752439764025,
+        "gross_imep_bar": 0.042073161736726546,
+        "gross_indicated_power_kw": 0.2753681996362402,
+        "fuel_consumption_kg_per_hr": 2.634565609279625
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.22518807008955,
+        "peak_temperature_k": 1015.4721329658809,
+        "gross_imep_bar": 0.05271780045177012,
+        "gross_indicated_power_kw": 0.43021589171271674,
+        "fuel_consumption_kg_per_hr": 3.3030865877607005
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.42889048794835,
+        "peak_temperature_k": 1068.4559078510335,
+        "gross_imep_bar": 0.024240955086829746,
+        "gross_indicated_power_kw": 0.19038801604196118,
+        "fuel_consumption_kg_per_hr": 3.1328032173005673
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.798629144548016,
+        "peak_temperature_k": 1081.1362769549746,
+        "gross_imep_bar": 0.11326103444546329,
+        "gross_indicated_power_kw": 0.8589149125188072,
+        "fuel_consumption_kg_per_hr": 3.2747583106987848
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.353612604404393,
+        "peak_temperature_k": 1050.0637551835352,
+        "gross_imep_bar": 0.007919756802205117,
+        "gross_indicated_power_kw": 0.05183468705838623,
+        "fuel_consumption_kg_per_hr": 1.3053346868088176
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.408592527295518,
+        "peak_temperature_k": 1051.7565835969451,
+        "gross_imep_bar": 0.011813643215564936,
+        "gross_indicated_power_kw": 0.0971884245045854,
+        "fuel_consumption_kg_per_hr": 1.478334068116863
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 41.156839636234764,
+        "peak_temperature_k": 1077.5861240696272,
+        "gross_imep_bar": 0.2828477555455578,
+        "gross_indicated_power_kw": 3.3322216158985736,
+        "fuel_consumption_kg_per_hr": 9.327343998597799
+      },
+      "predicted": {
+        "peak_pressure_bar": 45.72982245948183,
+        "peak_temperature_k": 1271.380444064668,
+        "gross_imep_bar": 1.4856105236682713,
+        "gross_indicated_power_kw": 14.144900165485865,
+        "fuel_consumption_kg_per_hr": 8.086306700440849
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.794061876549744,
+        "peak_temperature_k": 1039.4506804184891,
+        "gross_imep_bar": 0.04031620917637259,
+        "gross_indicated_power_kw": 0.4749641496340558,
+        "fuel_consumption_kg_per_hr": 2.359817991672669
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.79060046161614,
+        "peak_temperature_k": 1039.0270482649996,
+        "gross_imep_bar": 0.027810516791509875,
+        "gross_indicated_power_kw": 0.27716903943243804,
+        "fuel_consumption_kg_per_hr": 1.9943101611377592
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.32092606259945,
+        "peak_temperature_k": 1064.8685431805484,
+        "gross_imep_bar": 0.022898598336084264,
+        "gross_indicated_power_kw": 0.1798451707753645,
+        "fuel_consumption_kg_per_hr": 3.132803266330059
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.36461652745914,
+        "peak_temperature_k": 1064.209770546288,
+        "gross_imep_bar": 0.02536449973032178,
+        "gross_indicated_power_kw": 0.20159724986131428,
+        "fuel_consumption_kg_per_hr": 3.3612367629289226
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.88361812824481,
+        "peak_temperature_k": 1042.1979637347856,
+        "gross_imep_bar": -0.017580330395560784,
+        "gross_indicated_power_kw": -0.20711338806890667,
+        "fuel_consumption_kg_per_hr": 4.742218051792281
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.1887537839231,
+        "peak_temperature_k": 1040.8713291962122,
+        "gross_imep_bar": -0.02033725281282863,
+        "gross_indicated_power_kw": -0.20180431378640568,
+        "fuel_consumption_kg_per_hr": 4.529806276558609
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.502748999172802,
+        "peak_temperature_k": 1028.4691824568083,
+        "gross_imep_bar": -0.012518649348964784,
+        "gross_indicated_power_kw": -0.08193436839078005,
+        "fuel_consumption_kg_per_hr": 2.6345655546847575
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.646357169706327,
+        "peak_temperature_k": 1029.094745102541,
+        "gross_imep_bar": -0.003443315903462365,
+        "gross_indicated_power_kw": -0.021486768893408142,
+        "fuel_consumption_kg_per_hr": 3.097261198490894
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.816129009780074,
+        "peak_temperature_k": 1056.1281134614594,
+        "gross_imep_bar": -0.05558862633615905,
+        "gross_indicated_power_kw": -0.4365920503020635,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.060043575837494,
+        "peak_temperature_k": 1056.1985092490017,
+        "gross_imep_bar": -0.053852582185562936,
+        "gross_indicated_power_kw": -0.42749497857176966,
+        "fuel_consumption_kg_per_hr": 0.15732120260253246
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.622763141126768,
+        "peak_temperature_k": 1059.677048157713,
+        "gross_imep_bar": 0.016390982353487474,
+        "gross_indicated_power_kw": 0.1716459658227873,
+        "fuel_consumption_kg_per_hr": 2.088535425747963
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.56716155146944,
+        "peak_temperature_k": 1057.6923236527598,
+        "gross_imep_bar": 0.012374793438953108,
+        "gross_indicated_power_kw": 0.12456504822432646,
+        "fuel_consumption_kg_per_hr": 1.8339951912361747
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 38.17342111008838,
+        "peak_temperature_k": 1040.8789888190208,
+        "gross_imep_bar": 0.22243623717416097,
+        "gross_indicated_power_kw": 1.4558417679135438,
+        "fuel_consumption_kg_per_hr": 5.200700890784691
+      },
+      "predicted": {
+        "peak_pressure_bar": 38.15707720783253,
+        "peak_temperature_k": 1056.561261527921,
+        "gross_imep_bar": 0.2848533016081495,
+        "gross_indicated_power_kw": 2.1976913061589785,
+        "fuel_consumption_kg_per_hr": 6.275022621864812
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.612393512002438,
+        "peak_temperature_k": 1032.6622501396582,
+        "gross_imep_bar": 0.04520410654279443,
+        "gross_indicated_power_kw": 0.4142042596618888,
+        "fuel_consumption_kg_per_hr": 1.8354140641759569
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.545493248102815,
+        "peak_temperature_k": 1029.8649862888838,
+        "gross_imep_bar": 0.045510247684379744,
+        "gross_indicated_power_kw": 0.39171540076240075,
+        "fuel_consumption_kg_per_hr": 1.6813065173957926
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.628489805180863,
+        "peak_temperature_k": 1054.9724672070213,
+        "gross_imep_bar": -0.02078980865450516,
+        "gross_indicated_power_kw": -0.13606897945527274,
+        "fuel_consumption_kg_per_hr": 2.6220200042296464
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.057890228209914,
+        "peak_temperature_k": 1068.0570045418667,
+        "gross_imep_bar": 0.056720245244641955,
+        "gross_indicated_power_kw": 0.35877891269015255,
+        "fuel_consumption_kg_per_hr": 3.0037807388862725
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.61371182692587,
+        "peak_temperature_k": 1083.7952763340581,
+        "gross_imep_bar": -0.012039821447148734,
+        "gross_indicated_power_kw": -0.1103206259426113,
+        "fuel_consumption_kg_per_hr": 1.820245375931648
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.687639673677165,
+        "peak_temperature_k": 1084.0185783685806,
+        "gross_imep_bar": -0.008493066499758086,
+        "gross_indicated_power_kw": -0.08351705766216058,
+        "fuel_consumption_kg_per_hr": 1.9551385255527847
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.74818971098475,
+        "peak_temperature_k": 1053.355485470636,
+        "gross_imep_bar": -0.06623969114813362,
+        "gross_indicated_power_kw": -0.43353776476465306,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.199097692270254,
+        "peak_temperature_k": 1053.892390215154,
+        "gross_imep_bar": -0.06061701152765423,
+        "gross_indicated_power_kw": -0.41576522619102363,
+        "fuel_consumption_kg_per_hr": 0.24089808767283866
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.8287389060064,
+        "peak_temperature_k": 991.7007635426804,
+        "gross_imep_bar": 0.1848242508586879,
+        "gross_indicated_power_kw": 1.693540650383432,
+        "fuel_consumption_kg_per_hr": 7.376783593961091
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.79707918977089,
+        "peak_temperature_k": 991.5701081855747,
+        "gross_imep_bar": 0.18038241766921112,
+        "gross_indicated_power_kw": 1.5780147104309785,
+        "fuel_consumption_kg_per_hr": 6.994771675893183
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.930429576151454,
+        "peak_temperature_k": 1060.7927587150812,
+        "gross_imep_bar": -0.037496473408478205,
+        "gross_indicated_power_kw": -0.4417449202335007,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.016119140012638,
+        "peak_temperature_k": 1060.5663769525747,
+        "gross_imep_bar": -0.03801053715870665,
+        "gross_indicated_power_kw": -0.43816626393633074,
+        "fuel_consumption_kg_per_hr": 0.08849317661091051
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 34.58174375664637,
+        "peak_temperature_k": 1055.8645841820137,
+        "gross_imep_bar": 0.06896546472663168,
+        "gross_indicated_power_kw": 0.8124802400122204,
+        "fuel_consumption_kg_per_hr": 7.048807095365419
+      },
+      "predicted": {
+        "peak_pressure_bar": 34.375020006850804,
+        "peak_temperature_k": 1055.0393839524954,
+        "gross_imep_bar": 0.07234503215461616,
+        "gross_indicated_power_kw": 0.7794469466528796,
+        "fuel_consumption_kg_per_hr": 6.34718973686452
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 36.94974708534466,
+        "peak_temperature_k": 1081.34092710478,
+        "gross_imep_bar": 0.11815470758092426,
+        "gross_indicated_power_kw": 1.3919773549623073,
+        "fuel_consumption_kg_per_hr": 7.020946472868554
+      },
+      "predicted": {
+        "peak_pressure_bar": 38.794578673235186,
+        "peak_temperature_k": 1186.084703758933,
+        "gross_imep_bar": 0.8234570886676329,
+        "gross_indicated_power_kw": 8.893735754770328,
+        "fuel_consumption_kg_per_hr": 7.256143700284788
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.816129009780074,
+        "peak_temperature_k": 1056.1281134614594,
+        "gross_imep_bar": -0.05558862633615905,
+        "gross_indicated_power_kw": -0.4365920503020635,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.35108987872198,
+        "peak_temperature_k": 1056.6300627660853,
+        "gross_imep_bar": -0.05201882037443571,
+        "gross_indicated_power_kw": -0.4189936709176233,
+        "fuel_consumption_kg_per_hr": 0.3343075586291929
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 37.21403300679226,
+        "peak_temperature_k": 1089.37606634603,
+        "gross_imep_bar": 0.2115634038147512,
+        "gross_indicated_power_kw": 2.492422631973275,
+        "fuel_consumption_kg_per_hr": 7.020946448911145
+      },
+      "predicted": {
+        "peak_pressure_bar": 43.15293631165001,
+        "peak_temperature_k": 1838.751444170226,
+        "gross_imep_bar": 3.8851931960317865,
+        "gross_indicated_power_kw": 41.500954631047044,
+        "fuel_consumption_kg_per_hr": 6.727187827905794
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.240641659491054,
+        "peak_temperature_k": 1094.291922578913,
+        "gross_imep_bar": 0.1385534321633499,
+        "gross_indicated_power_kw": 0.9068300929458999,
+        "fuel_consumption_kg_per_hr": 1.295464424516613
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.08551120852584,
+        "peak_temperature_k": 1109.5327612978624,
+        "gross_imep_bar": 0.13154117162937667,
+        "gross_indicated_power_kw": 0.8872901081503258,
+        "fuel_consumption_kg_per_hr": 1.240672199858561
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.27927400233838,
+        "peak_temperature_k": 1049.2725702380044,
+        "gross_imep_bar": 0.04538565540581665,
+        "gross_indicated_power_kw": 0.5346871560047681,
+        "fuel_consumption_kg_per_hr": 9.439272145335472
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.16764094995573,
+        "peak_temperature_k": 1048.066380027441,
+        "gross_imep_bar": 0.05717527740396335,
+        "gross_indicated_power_kw": 0.5544454594013457,
+        "fuel_consumption_kg_per_hr": 8.062829554622159
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 82.57676949538589,
+        "peak_temperature_k": 2873.333779207318,
+        "gross_imep_bar": 9.378732565269685,
+        "gross_indicated_power_kw": 85.93712553718426,
+        "fuel_consumption_kg_per_hr": 5.460735946016277
+      },
+      "predicted": {
+        "peak_pressure_bar": 82.4934262183711,
+        "peak_temperature_k": 2798.060311806704,
+        "gross_imep_bar": 9.008271200981216,
+        "gross_indicated_power_kw": 76.78593070972258,
+        "fuel_consumption_kg_per_hr": 5.13791796141861
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 26.571153876271197,
+        "peak_temperature_k": 1041.042880699917,
+        "gross_imep_bar": -0.03730482571129845,
+        "gross_indicated_power_kw": -0.3418233186610167,
+        "fuel_consumption_kg_per_hr": 1.8441959572352697
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.52924393415703,
+        "peak_temperature_k": 1041.0730664242399,
+        "gross_imep_bar": -0.03413555555008651,
+        "gross_indicated_power_kw": -0.3244204759405939,
+        "fuel_consumption_kg_per_hr": 1.9413455181529202
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.86495049608524,
+        "peak_temperature_k": 1058.1205383034237,
+        "gross_imep_bar": -0.04788735047384699,
+        "gross_indicated_power_kw": -0.4387907663081758,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 25.850082282667138,
+        "peak_temperature_k": 1057.5137600212715,
+        "gross_imep_bar": -0.05023157593934624,
+        "gross_indicated_power_kw": -0.4381212579834277,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.6487669316169,
+        "peak_temperature_k": 1034.0191851543384,
+        "gross_imep_bar": 0.05064546473515172,
+        "gross_indicated_power_kw": 0.5303580664986454,
+        "fuel_consumption_kg_per_hr": 2.0976159887459738
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.560261963229852,
+        "peak_temperature_k": 1030.4169146861427,
+        "gross_imep_bar": 0.0448978919910555,
+        "gross_indicated_power_kw": 0.3894694917839618,
+        "fuel_consumption_kg_per_hr": 1.7091654788412807
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.454564694529715,
+        "peak_temperature_k": 1056.2553224322214,
+        "gross_imep_bar": 0.09021352169918052,
+        "gross_indicated_power_kw": 0.8266245663217763,
+        "fuel_consumption_kg_per_hr": 3.6404905929787574
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.510777644173345,
+        "peak_temperature_k": 1055.6655803352514,
+        "gross_imep_bar": 0.09402842185041904,
+        "gross_indicated_power_kw": 0.856030869813039,
+        "fuel_consumption_kg_per_hr": 3.6434780770336146
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.29500291800439,
+        "peak_temperature_k": 1047.949816240627,
+        "gross_imep_bar": 0.06224120774881801,
+        "gross_indicated_power_kw": 0.7332619538034105,
+        "fuel_consumption_kg_per_hr": 2.349602364092144
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.309508481270615,
+        "peak_temperature_k": 1049.9048533014227,
+        "gross_imep_bar": 0.051927340277598474,
+        "gross_indicated_power_kw": 0.5994133679003781,
+        "fuel_consumption_kg_per_hr": 2.307590477729824
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.6499233105401,
+        "peak_temperature_k": 1085.0254753884237,
+        "gross_imep_bar": -0.005994455164437483,
+        "gross_indicated_power_kw": -0.07062051115076322,
+        "fuel_consumption_kg_per_hr": 2.3403154196870033
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.586430987595257,
+        "peak_temperature_k": 1084.3484150699983,
+        "gross_imep_bar": -0.007455920680443109,
+        "gross_indicated_power_kw": -0.07878651913450996,
+        "fuel_consumption_kg_per_hr": 2.098104814077334
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.716665475219834,
+        "peak_temperature_k": 1064.532402820275,
+        "gross_imep_bar": 0.07300954556890232,
+        "gross_indicated_power_kw": 0.7645541733373095,
+        "fuel_consumption_kg_per_hr": 4.16056070036862
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.691254801796056,
+        "peak_temperature_k": 1062.6557521110933,
+        "gross_imep_bar": 0.07795033314224924,
+        "gross_indicated_power_kw": 0.7632829660940328,
+        "fuel_consumption_kg_per_hr": 3.893836357314337
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.86495049608524,
+        "peak_temperature_k": 1058.1205383034237,
+        "gross_imep_bar": -0.04788735047384699,
+        "gross_indicated_power_kw": -0.4387907663081758,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 25.845421190897117,
+        "peak_temperature_k": 1057.3235389438191,
+        "gross_imep_bar": -0.05096399846693731,
+        "gross_indicated_power_kw": -0.43791157675903003,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.183050978387506,
+        "peak_temperature_k": 1054.0105266445487,
+        "gross_imep_bar": -0.039209242838017064,
+        "gross_indicated_power_kw": -0.30794867313183166,
+        "fuel_consumption_kg_per_hr": 1.573212061243813
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.17005843068199,
+        "peak_temperature_k": 1054.6535051614096,
+        "gross_imep_bar": -0.038973044912160186,
+        "gross_indicated_power_kw": -0.31281484177262187,
+        "fuel_consumption_kg_per_hr": 1.6207361372343345
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.702528699858668,
+        "peak_temperature_k": 1062.5295781798234,
+        "gross_imep_bar": 0.014699488425766181,
+        "gross_indicated_power_kw": 0.17317426818718212,
+        "fuel_consumption_kg_per_hr": 2.349602316686773
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.582688469643692,
+        "peak_temperature_k": 1058.2483123294994,
+        "gross_imep_bar": 0.009800200627896768,
+        "gross_indicated_power_kw": 0.10809609093595082,
+        "fuel_consumption_kg_per_hr": 1.8274685100950883
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.47583400002585,
+        "peak_temperature_k": 1054.4243979637213,
+        "gross_imep_bar": 0.02371099980539533,
+        "gross_indicated_power_kw": 0.21726338316053878,
+        "fuel_consumption_kg_per_hr": 1.8274684987578274
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.458704269473934,
+        "peak_temperature_k": 1054.094727060289,
+        "gross_imep_bar": 0.02344413757912355,
+        "gross_indicated_power_kw": 0.22646466503170357,
+        "fuel_consumption_kg_per_hr": 1.8438348598430419
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.501508850655622,
+        "peak_temperature_k": 1098.0741203679186,
+        "gross_imep_bar": -0.07100102153578479,
+        "gross_indicated_power_kw": -0.46470059927956714,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 30.495894893215592,
+        "peak_temperature_k": 1098.2325509281818,
+        "gross_imep_bar": -0.06574999400594014,
+        "gross_indicated_power_kw": -0.45602907228016143,
+        "fuel_consumption_kg_per_hr": 0.01619330555830072
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.610331667868223,
+        "peak_temperature_k": 996.2518598403341,
+        "gross_imep_bar": 0.14285026510664364,
+        "gross_indicated_power_kw": 1.4959244780746206,
+        "fuel_consumption_kg_per_hr": 4.215304952342955
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.62143357028524,
+        "peak_temperature_k": 994.6090529841207,
+        "gross_imep_bar": 0.1403988115559447,
+        "gross_indicated_power_kw": 1.3859539643376662,
+        "fuel_consumption_kg_per_hr": 3.954906371036067
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.559791061604475,
+        "peak_temperature_k": 1057.4401451263375,
+        "gross_imep_bar": -0.013957463343998451,
+        "gross_indicated_power_kw": -0.09135138396719661,
+        "fuel_consumption_kg_per_hr": 1.3053346896761322
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.596478529701876,
+        "peak_temperature_k": 1058.7499844976142,
+        "gross_imep_bar": -0.011731085920560528,
+        "gross_indicated_power_kw": -0.07701328116895581,
+        "fuel_consumption_kg_per_hr": 1.4195514614084477
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 38.243744182274334,
+        "peak_temperature_k": 1074.3376435908997,
+        "gross_imep_bar": 0.1537782751454082,
+        "gross_indicated_power_kw": 1.8116576230444663,
+        "fuel_consumption_kg_per_hr": 6.995507922617239
+      },
+      "predicted": {
+        "peak_pressure_bar": 38.56761304236138,
+        "peak_temperature_k": 1072.434225299676,
+        "gross_imep_bar": 0.23828628851176345,
+        "gross_indicated_power_kw": 2.3301838492759988,
+        "fuel_consumption_kg_per_hr": 6.240446519124087
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.34995811657785,
+        "peak_temperature_k": 1043.575459355213,
+        "gross_imep_bar": -0.040957567348396055,
+        "gross_indicated_power_kw": -0.4289066423021008,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.3868938136832,
+        "peak_temperature_k": 1043.3353457753183,
+        "gross_imep_bar": -0.040724795974001214,
+        "gross_indicated_power_kw": -0.42252278193633136,
+        "fuel_consumption_kg_per_hr": 0.039518483649411976
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.660570111548225,
+        "peak_temperature_k": 1042.5256113425503,
+        "gross_imep_bar": 0.047149924353852464,
+        "gross_indicated_power_kw": 0.4937528532245914,
+        "fuel_consumption_kg_per_hr": 6.292847864948177
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.614919426297796,
+        "peak_temperature_k": 1040.3512908057323,
+        "gross_imep_bar": 0.05060302366361249,
+        "gross_indicated_power_kw": 0.474995206790913,
+        "fuel_consumption_kg_per_hr": 5.630638983983531
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.17778389410476,
+        "peak_temperature_k": 1033.7541116818975,
+        "gross_imep_bar": 0.020620314519385296,
+        "gross_indicated_power_kw": 0.18894350010903446,
+        "fuel_consumption_kg_per_hr": 7.376783589505306
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.13133540705446,
+        "peak_temperature_k": 1034.582344888497,
+        "gross_imep_bar": 0.020354091833611216,
+        "gross_indicated_power_kw": 0.17196249647871936,
+        "fuel_consumption_kg_per_hr": 6.862206919331015
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.27022965101413,
+        "peak_temperature_k": 1040.1667405748224,
+        "gross_imep_bar": -0.05413098714387814,
+        "gross_indicated_power_kw": -0.4251437788569279,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.267065656366746,
+        "peak_temperature_k": 1040.0314664881353,
+        "gross_imep_bar": -0.054649535373103755,
+        "gross_indicated_power_kw": -0.4249948042570095,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 37.41629853529928,
+        "peak_temperature_k": 1065.7326645235778,
+        "gross_imep_bar": 0.5526541930227707,
+        "gross_indicated_power_kw": 4.3405358819398305,
+        "fuel_consumption_kg_per_hr": 6.2656063479184905
+      },
+      "predicted": {
+        "peak_pressure_bar": 64.28349747954016,
+        "peak_temperature_k": 2284.193200208921,
+        "gross_imep_bar": 6.9544441428558175,
+        "gross_indicated_power_kw": 49.83948398087998,
+        "fuel_consumption_kg_per_hr": 5.988222632203803
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.884802873997508,
+        "peak_temperature_k": 1050.448958624037,
+        "gross_imep_bar": 0.06825517022300177,
+        "gross_indicated_power_kw": 0.8041122800328869,
+        "fuel_consumption_kg_per_hr": 4.699204714158076
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.82263358604042,
+        "peak_temperature_k": 1047.379490713513,
+        "gross_imep_bar": 0.06580508119467611,
+        "gross_indicated_power_kw": 0.6423977665252919,
+        "fuel_consumption_kg_per_hr": 3.8637906107755446
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.74818971098475,
+        "peak_temperature_k": 1053.355485470636,
+        "gross_imep_bar": -0.06623969114813362,
+        "gross_indicated_power_kw": -0.43353776476465306,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 25.80260034011265,
+        "peak_temperature_k": 1053.7371691287115,
+        "gross_imep_bar": -0.06359322944553956,
+        "gross_indicated_power_kw": -0.42953502773573715,
+        "fuel_consumption_kg_per_hr": 0.02622020022178343
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.7185938985042,
+        "peak_temperature_k": 1063.1214831604832,
+        "gross_imep_bar": -0.02951578961680117,
+        "gross_indicated_power_kw": -0.19318039130217596,
+        "fuel_consumption_kg_per_hr": 1.3053346837142619
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.743215025937058,
+        "peak_temperature_k": 1064.011258308245,
+        "gross_imep_bar": -0.025748734488623037,
+        "gross_indicated_power_kw": -0.17901715136792706,
+        "fuel_consumption_kg_per_hr": 1.4342364642171357
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.37848140160227,
+        "peak_temperature_k": 1046.3189033136025,
+        "gross_imep_bar": 0.012302106317884521,
+        "gross_indicated_power_kw": 0.11272393659317757,
+        "fuel_consumption_kg_per_hr": 3.670827997344482
+      },
+      "predicted": {
+        "peak_pressure_bar": 30.380741074333837,
+        "peak_temperature_k": 1043.8542597059457,
+        "gross_imep_bar": 0.015997892720833178,
+        "gross_indicated_power_kw": 0.1405602374993702,
+        "fuel_consumption_kg_per_hr": 3.4692602193209936
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 34.42144933218121,
+        "peak_temperature_k": 1086.9024532932337,
+        "gross_imep_bar": 0.06148073154229793,
+        "gross_indicated_power_kw": 0.6438247151686984,
+        "fuel_consumption_kg_per_hr": 4.16056068959556
+      },
+      "predicted": {
+        "peak_pressure_bar": 36.42652793444874,
+        "peak_temperature_k": 1216.5631167085944,
+        "gross_imep_bar": 0.7031614668046172,
+        "gross_indicated_power_kw": 7.295958464469626,
+        "fuel_consumption_kg_per_hr": 4.019284413867082
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.94388496042378,
+        "peak_temperature_k": 1071.7078238469035,
+        "gross_imep_bar": 0.057160952500586615,
+        "gross_indicated_power_kw": 0.6734116066801428,
+        "fuel_consumption_kg_per_hr": 4.680630849150896
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.89568995216629,
+        "peak_temperature_k": 1070.2336386539378,
+        "gross_imep_bar": 0.061690201601679893,
+        "gross_indicated_power_kw": 0.6480977131646113,
+        "fuel_consumption_kg_per_hr": 4.180063328759683
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 32.86560786192838,
+        "peak_temperature_k": 1081.642570352612,
+        "gross_imep_bar": 0.03965856356530931,
+        "gross_indicated_power_kw": 0.36339056818370713,
+        "fuel_consumption_kg_per_hr": 1.813650192255317
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.82828429518975,
+        "peak_temperature_k": 1080.4219425602118,
+        "gross_imep_bar": 0.040393125675413796,
+        "gross_indicated_power_kw": 0.34183968705356277,
+        "fuel_consumption_kg_per_hr": 1.6662911449036386
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 29.061724110522213,
+        "peak_temperature_k": 971.8112139316842,
+        "gross_imep_bar": 0.2601767371985878,
+        "gross_indicated_power_kw": 3.065134973317672,
+        "fuel_consumption_kg_per_hr": 7.113327167483975
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.138967408936793,
+        "peak_temperature_k": 973.286157184858,
+        "gross_imep_bar": 0.24847964898265965,
+        "gross_indicated_power_kw": 2.636324517508028,
+        "fuel_consumption_kg_per_hr": 6.434785392097306
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.52640977080427,
+        "peak_temperature_k": 1039.497777902242,
+        "gross_imep_bar": 0.176284916607344,
+        "gross_indicated_power_kw": 2.0768077460712053,
+        "fuel_consumption_kg_per_hr": 7.020946263429918
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.65432878775958,
+        "peak_temperature_k": 1040.20549661735,
+        "gross_imep_bar": 0.16853162632699656,
+        "gross_indicated_power_kw": 1.6967582568949422,
+        "fuel_consumption_kg_per_hr": 6.044994627991499
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 31.79857539267613,
+        "peak_temperature_k": 1047.635423009679,
+        "gross_imep_bar": 0.04636620432206495,
+        "gross_indicated_power_kw": 0.30346609765217203,
+        "fuel_consumption_kg_per_hr": 2.6106692698845495
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.8825446540122,
+        "peak_temperature_k": 1049.3686215426997,
+        "gross_imep_bar": 0.04885209779317714,
+        "gross_indicated_power_kw": 0.37412318205566214,
+        "fuel_consumption_kg_per_hr": 3.0414297812284192
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 26.15107162440379,
+        "peak_temperature_k": 1024.580116279214,
+        "gross_imep_bar": 0.029910785588458208,
+        "gross_indicated_power_kw": 0.31322501422599924,
+        "fuel_consumption_kg_per_hr": 2.1076524743655454
+      },
+      "predicted": {
+        "peak_pressure_bar": 26.1336247677862,
+        "peak_temperature_k": 1023.8966018415474,
+        "gross_imep_bar": 0.032064694491547,
+        "gross_indicated_power_kw": 0.3457893419152172,
+        "fuel_consumption_kg_per_hr": 2.137291337919464
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 70.00896690618336,
+        "peak_temperature_k": 3064.282465655597,
+        "gross_imep_bar": 11.14372659874203,
+        "gross_indicated_power_kw": 72.93552003379403,
+        "fuel_consumption_kg_per_hr": 5.18185769190622
+      },
+      "predicted": {
+        "peak_pressure_bar": 42.501241763220506,
+        "peak_temperature_k": 1145.735153124194,
+        "gross_imep_bar": 0.8571291408099746,
+        "gross_indicated_power_kw": 5.867476818522126,
+        "fuel_consumption_kg_per_hr": 5.721819117818497
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 37.74960859429381,
+        "peak_temperature_k": 1060.9557339189885,
+        "gross_imep_bar": 0.33577491161762213,
+        "gross_indicated_power_kw": 2.1976416574951747,
+        "fuel_consumption_kg_per_hr": 3.886393355097144
+      },
+      "predicted": {
+        "peak_pressure_bar": 37.8724319680437,
+        "peak_temperature_k": 1059.4581618192758,
+        "gross_imep_bar": 0.2212905109029585,
+        "gross_indicated_power_kw": 1.7621052992004569,
+        "fuel_consumption_kg_per_hr": 4.999774434899334
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 27.436394317267688,
+        "peak_temperature_k": 1073.6064906167207,
+        "gross_imep_bar": -0.049085081883203666,
+        "gross_indicated_power_kw": -0.4497655535482845,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 27.434473491669046,
+        "peak_temperature_k": 1073.531509880931,
+        "gross_imep_bar": -0.04937469381056393,
+        "gross_indicated_power_kw": -0.44968288021642094,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 36.6227201429952,
+        "peak_temperature_k": 998.4427206767804,
+        "gross_imep_bar": 0.30584223352590584,
+        "gross_indicated_power_kw": 2.001732737505167,
+        "fuel_consumption_kg_per_hr": 5.200701060948423
+      },
+      "predicted": {
+        "peak_pressure_bar": 36.87800339643803,
+        "peak_temperature_k": 1009.489478698037,
+        "gross_imep_bar": 0.2880845326258389,
+        "gross_indicated_power_kw": 2.1617840070530345,
+        "fuel_consumption_kg_per_hr": 5.629193483515456
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.6430409625431,
+        "peak_temperature_k": 1103.1568419466264,
+        "gross_imep_bar": -0.05132598342930855,
+        "gross_indicated_power_kw": -0.4702988863993795,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 30.643511923713625,
+        "peak_temperature_k": 1103.1737542336039,
+        "gross_imep_bar": -0.05125907805187533,
+        "gross_indicated_power_kw": -0.4703176323538594,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.03087562623009,
+        "peak_temperature_k": 1041.8823740009911,
+        "gross_imep_bar": 0.06629314650101935,
+        "gross_indicated_power_kw": 0.6942202067698477,
+        "fuel_consumption_kg_per_hr": 8.390464061168458
+      },
+      "predicted": {
+        "peak_pressure_bar": 34.825029544663494,
+        "peak_temperature_k": 1042.8800760867525,
+        "gross_imep_bar": 0.06393917623456127,
+        "gross_indicated_power_kw": 0.7050669827039135,
+        "fuel_consumption_kg_per_hr": 8.713324050023404
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 90.52186778016251,
+        "peak_temperature_k": 3140.4186199656706,
+        "gross_imep_bar": 11.775953070675136,
+        "gross_indicated_power_kw": 77.07343261635663,
+        "fuel_consumption_kg_per_hr": 5.22133859510544
+      },
+      "predicted": {
+        "peak_pressure_bar": 74.07061914633984,
+        "peak_temperature_k": 2745.669042539449,
+        "gross_imep_bar": 9.450444629925471,
+        "gross_indicated_power_kw": 67.76873026410433,
+        "fuel_consumption_kg_per_hr": 5.974105130890169
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 37.85190365062004,
+        "peak_temperature_k": 1031.9588513208719,
+        "gross_imep_bar": 0.2192949472895511,
+        "gross_indicated_power_kw": 2.296451317914049,
+        "fuel_consumption_kg_per_hr": 8.321121620487288
+      },
+      "predicted": {
+        "peak_pressure_bar": 37.85009962631116,
+        "peak_temperature_k": 1032.764852935477,
+        "gross_imep_bar": 0.21552108835467204,
+        "gross_indicated_power_kw": 2.128514246574843,
+        "fuel_consumption_kg_per_hr": 7.790414957798019
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.94373732907833,
+        "peak_temperature_k": 1022.5396484294396,
+        "gross_imep_bar": 0.18812035028252874,
+        "gross_indicated_power_kw": 1.7237427387784656,
+        "fuel_consumption_kg_per_hr": 7.309873994421886
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.75540239044698,
+        "peak_temperature_k": 1020.203221675728,
+        "gross_imep_bar": 0.19058244542324412,
+        "gross_indicated_power_kw": 1.6233596074418233,
+        "fuel_consumption_kg_per_hr": 6.714967830857603
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.43725254409536,
+        "peak_temperature_k": 1100.6570642166248,
+        "gross_imep_bar": 0.08583294987834324,
+        "gross_indicated_power_kw": 0.6741304119343603,
+        "fuel_consumption_kg_per_hr": 1.554557394076016
+      },
+      "predicted": {
+        "peak_pressure_bar": 33.66525576108546,
+        "peak_temperature_k": 1109.2453796004227,
+        "gross_imep_bar": 0.10398625740875603,
+        "gross_indicated_power_kw": 0.8311268901527559,
+        "fuel_consumption_kg_per_hr": 1.6468592089488723
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 33.04315190635549,
+        "peak_temperature_k": 982.7402582789173,
+        "gross_imep_bar": 0.2988126217991757,
+        "gross_indicated_power_kw": 3.5203032654157345,
+        "fuel_consumption_kg_per_hr": 9.439272216080298
+      },
+      "predicted": {
+        "peak_pressure_bar": 32.9699773919541,
+        "peak_temperature_k": 979.5673732427758,
+        "gross_imep_bar": 0.294873639315367,
+        "gross_indicated_power_kw": 2.786218505311426,
+        "fuel_consumption_kg_per_hr": 7.471583271643118
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 39.55470516984837,
+        "peak_temperature_k": 1035.3289834309985,
+        "gross_imep_bar": 0.26768659848821497,
+        "gross_indicated_power_kw": 1.7520046901562851,
+        "fuel_consumption_kg_per_hr": 5.181857758417429
+      },
+      "predicted": {
+        "peak_pressure_bar": 39.6311351204303,
+        "peak_temperature_k": 1051.1509813701248,
+        "gross_imep_bar": 0.3376377927383906,
+        "gross_indicated_power_kw": 2.6157897342363388,
+        "fuel_consumption_kg_per_hr": 6.339738080870049
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 90.6416363953959,
+        "peak_temperature_k": 2884.2760211221253,
+        "gross_imep_bar": 9.602588024675011,
+        "gross_indicated_power_kw": 62.84879165368406,
+        "fuel_consumption_kg_per_hr": 3.8863933225393184
+      },
+      "predicted": {
+        "peak_pressure_bar": 81.83765136984199,
+        "peak_temperature_k": 2790.2861239185036,
+        "gross_imep_bar": 9.075399991155932,
+        "gross_indicated_power_kw": 68.98661753546962,
+        "fuel_consumption_kg_per_hr": 4.493336063670351
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 39.14531021951145,
+        "peak_temperature_k": 1024.5273272170332,
+        "gross_imep_bar": 0.29832149205313346,
+        "gross_indicated_power_kw": 3.124015359473567,
+        "fuel_consumption_kg_per_hr": 8.29097246054024
+      },
+      "predicted": {
+        "peak_pressure_bar": 38.700412697007344,
+        "peak_temperature_k": 1024.423674022212,
+        "gross_imep_bar": 0.2904831615911226,
+        "gross_indicated_power_kw": 3.043616188318606,
+        "fuel_consumption_kg_per_hr": 8.031208462333847
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.34995811657785,
+        "peak_temperature_k": 1043.575459355213,
+        "gross_imep_bar": -0.040957567348396055,
+        "gross_indicated_power_kw": -0.4289066423021008,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.374666290834522,
+        "peak_temperature_k": 1043.4171701084983,
+        "gross_imep_bar": -0.041006694409822374,
+        "gross_indicated_power_kw": -0.42581560373877425,
+        "fuel_consumption_kg_per_hr": 0.024699052620142083
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.34995811657785,
+        "peak_temperature_k": 1043.575459355213,
+        "gross_imep_bar": -0.040957567348396055,
+        "gross_indicated_power_kw": -0.4289066423021008,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.374847540376983,
+        "peak_temperature_k": 1043.4253608923384,
+        "gross_imep_bar": -0.04087401237827233,
+        "gross_indicated_power_kw": -0.42519751190417854,
+        "fuel_consumption_kg_per_hr": 0.026345655766272034
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.826960551738956,
+        "peak_temperature_k": 1086.0201531010666,
+        "gross_imep_bar": 0.11051230249976211,
+        "gross_indicated_power_kw": 1.1572821255484855,
+        "fuel_consumption_kg_per_hr": 4.145486217143444
+      },
+      "predicted": {
+        "peak_pressure_bar": 35.86965772865391,
+        "peak_temperature_k": 1085.545103477255,
+        "gross_imep_bar": 0.14297070758004576,
+        "gross_indicated_power_kw": 1.3814292284083927,
+        "fuel_consumption_kg_per_hr": 3.938294310764239
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.45164455433434,
+        "peak_temperature_k": 1026.6101680928577,
+        "gross_imep_bar": 0.032233809359894734,
+        "gross_indicated_power_kw": 0.3375516622741974,
+        "fuel_consumption_kg_per_hr": 4.215305091547338
+      },
+      "predicted": {
+        "peak_pressure_bar": 28.566625929313243,
+        "peak_temperature_k": 1024.7207506962666,
+        "gross_imep_bar": 0.035124922765682444,
+        "gross_indicated_power_kw": 0.3659577402157059,
+        "fuel_consumption_kg_per_hr": 4.190605883077913
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.896158669500192,
+        "peak_temperature_k": 1083.6260221848488,
+        "gross_imep_bar": -0.06948320442620592,
+        "gross_indicated_power_kw": -0.4547665095275966,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.898567232326172,
+        "peak_temperature_k": 1177.7066441418158,
+        "gross_imep_bar": 0.45580312412921425,
+        "gross_indicated_power_kw": 2.973221985894009,
+        "fuel_consumption_kg_per_hr": 0.3087916151520525
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.34995811657785,
+        "peak_temperature_k": 1043.575459355213,
+        "gross_imep_bar": -0.040957567348396055,
+        "gross_indicated_power_kw": -0.4289066423021008,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.349054693404987,
+        "peak_temperature_k": 1043.5368350241301,
+        "gross_imep_bar": -0.04110712325767114,
+        "gross_indicated_power_kw": -0.4288639788772978,
+        "fuel_consumption_kg_per_hr": 0.0
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 24.376690556311893,
+        "peak_temperature_k": 1044.7183795499984,
+        "gross_imep_bar": -0.03651399639168566,
+        "gross_indicated_power_kw": -0.43017038556496473,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 24.515366858702535,
+        "peak_temperature_k": 1043.985785592953,
+        "gross_imep_bar": -0.03562839286892992,
+        "gross_indicated_power_kw": -0.4111369287108856,
+        "fuel_consumption_kg_per_hr": 0.13008167585466257
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 28.973637438224205,
+        "peak_temperature_k": 1086.5244012357023,
+        "gross_imep_bar": -0.05830904208432729,
+        "gross_indicated_power_kw": -0.45795814562495174,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 29.14446179187084,
+        "peak_temperature_k": 1086.4470141237075,
+        "gross_imep_bar": -0.05093746346051749,
+        "gross_indicated_power_kw": -0.39557135698824253,
+        "fuel_consumption_kg_per_hr": 0.09913836114431648
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 25.74818971098475,
+        "peak_temperature_k": 1053.355485470636,
+        "gross_imep_bar": -0.06623969114813362,
+        "gross_indicated_power_kw": -0.43353776476465306,
+        "fuel_consumption_kg_per_hr": 0.0
+      },
+      "predicted": {
+        "peak_pressure_bar": 25.787779693189737,
+        "peak_temperature_k": 1053.7462169862808,
+        "gross_imep_bar": -0.06384123984290027,
+        "gross_indicated_power_kw": -0.4306267207140757,
+        "fuel_consumption_kg_per_hr": 0.018026387720450465
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 35.08261190639303,
+        "peak_temperature_k": 1063.4721371797527,
+        "gross_imep_bar": 0.15008814901968626,
+        "gross_indicated_power_kw": 0.9823246382315344,
+        "fuel_consumption_kg_per_hr": 2.5909288931034418
+      },
+      "predicted": {
+        "peak_pressure_bar": 37.048218928481155,
+        "peak_temperature_k": 1193.5523587314392,
+        "gross_imep_bar": 0.7478745438013441,
+        "gross_indicated_power_kw": 5.0136872545822495,
+        "fuel_consumption_kg_per_hr": 2.999294633100466
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 101.37975828250681,
+        "peak_temperature_k": 3166.971885160629,
+        "gross_imep_bar": 12.06621976232376,
+        "gross_indicated_power_kw": 78.97322367065898,
+        "fuel_consumption_kg_per_hr": 5.2007008953213205
+      },
+      "predicted": {
+        "peak_pressure_bar": 101.86958571333142,
+        "peak_temperature_k": 3167.948332237148,
+        "gross_imep_bar": 12.076186936131245,
+        "gross_indicated_power_kw": 79.33423572114569,
+        "fuel_consumption_kg_per_hr": 5.217730293538606
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 30.671354710557186,
+        "peak_temperature_k": 1056.408613090127,
+        "gross_imep_bar": -0.013227477888041692,
+        "gross_indicated_power_kw": -0.13851782452864408,
+        "fuel_consumption_kg_per_hr": 4.1952320746414165
+      },
+      "predicted": {
+        "peak_pressure_bar": 31.10672236630048,
+        "peak_temperature_k": 1056.2964142138503,
+        "gross_imep_bar": -0.009476558738160105,
+        "gross_indicated_power_kw": -0.09484337538433357,
+        "fuel_consumption_kg_per_hr": 4.568869965434261
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 92.70929055532348,
+        "peak_temperature_k": 3147.5905183489895,
+        "gross_imep_bar": 11.824896918309182,
+        "gross_indicated_power_kw": 77.39376935003483,
+        "fuel_consumption_kg_per_hr": 5.221338549961112
+      },
+      "predicted": {
+        "peak_pressure_bar": 81.78483574928887,
+        "peak_temperature_k": 2961.3332385859608,
+        "gross_imep_bar": 10.685322871134202,
+        "gross_indicated_power_kw": 77.60738361314617,
+        "fuel_consumption_kg_per_hr": 5.890606295193198
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 37.76433348195666,
+        "peak_temperature_k": 1029.5870710023526,
+        "gross_imep_bar": 0.21643214466478955,
+        "gross_indicated_power_kw": 1.6998540891989657,
+        "fuel_consumption_kg_per_hr": 6.2408410073310625
+      },
+      "predicted": {
+        "peak_pressure_bar": 37.66161343694792,
+        "peak_temperature_k": 1031.010274273088,
+        "gross_imep_bar": 0.2182178795633698,
+        "gross_indicated_power_kw": 2.001224728034943,
+        "fuel_consumption_kg_per_hr": 7.178009140881113
+      }
+    },
+    {
+      "actual": {
+        "peak_pressure_bar": 34.86148569760344,
+        "peak_temperature_k": 1064.4447600170952,
+        "gross_imep_bar": 0.05500416758142962,
+        "gross_indicated_power_kw": 0.5760022959688039,
+        "fuel_consumption_kg_per_hr": 6.26560632018437
+      },
+      "predicted": {
+        "peak_pressure_bar": 34.80648210935088,
+        "peak_temperature_k": 1063.816413711668,
+        "gross_imep_bar": 0.07516101248550827,
+        "gross_indicated_power_kw": 0.6829981063303238,
+        "fuel_consumption_kg_per_hr": 5.725524087345295
+      }
+    }
+  ],
+  "duration_seconds": 1589.916482499999,
+  "simulator_sha256": "1919a17177f5f847ca470175bfdfb4f61a0065683545587d14a2de1c20e006c8",
+  "dataset_sha256": "9d2413275828c062a2441299e604a14f6defc74045d8f4153fcddc6545cb1686",
+  "versions": {
+    "scikit_learn": "1.9.1",
+    "numpy": "2.4.6",
+    "cantera": "3.2.0"
+  },
+  "mechanism": "h2o2.yaml",
+  "ignition_model": "provisional autoignition; gaseous injection pulse with homogeneous mixing; no spark or resolved jet",
+  "limitations": [
+    "Metrics measure agreement with the simulator, not physical engine accuracy.",
+    "Predictions allowed only within the workbook parameter bounds; engine assumptions are fixed.",
+    "Inside-box checks do not guarantee accuracy or dense local coverage.",
+    "No brake power, emissions, knock or resolved injection mixing prediction. Fuel setting is not rated brake load."
+  ]
+}
